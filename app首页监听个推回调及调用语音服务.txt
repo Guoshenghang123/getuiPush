@@ -1,0 +1,50 @@
+document.addEventListener('plusready', function() {
+						plus.runtime.setBadgeNumber(0);
+						plus.push.setAutoNotification(true);
+						//监听推送消息接收
+						plus.push.addEventListener('receive', function(msg) {
+							try {
+								//								mui.alert(msg.content, msg.title);
+								//								mui.alert("receive");
+								//调用语音服务
+								var main = plus.android.runtimeMainActivity();
+					      var SpeechUtility = plus.android.importClass('com.iflytek.cloud.SpeechUtility');
+					      var SpeechConstant = plus.android.importClass('com.iflytek.cloud.SpeechConstant');
+					      SpeechUtility.createUtility(main, "appid=5af2af41");
+					      var SynthesizerPlayer = plus.android.importClass('com.iflytek.cloud.SpeechSynthesizer');
+				      	var play = SynthesizerPlayer.createSynthesizer(main, null);
+				      	play.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan"); //设置发音人
+				      	play.setParameter(SpeechConstant.SPEED, "10"); //设置语速  
+				      	play.setParameter(SpeechConstant.VOLUME, "90"); //设置音量，范围0~100  
+				     	// play.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端 
+				      	play.startSpeaking(msg.content, null);
+					
+								mui.openWindow({
+									url: 'personal/pushNotice.html',
+									id: "pushNotice",
+									styles: {
+										statusbar: {
+											background: "#3B9"
+										}
+									},
+									extras: {
+										'msg': msg
+									}
+								})
+							} catch(e) {
+								malert(e.message);
+							}
+						});
+						//监听点击推送事件
+						plus.push.addEventListener('click', function(msg) {
+							try {
+
+								//								mui.alert(JSON.stringify(msg));
+								mui.alert("click");
+							} catch(e) {
+								malert(e.message);
+							}
+						});
+						
+						
+})
