@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd 
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:component-scan base-package="com.yaoyaohao.health.surface.push" />
+  	<!--<bean id="redisClient" class="com.yaoyaohao.framework.redis.impl.ShardedJedisClientImpl">
+  		<constructor-arg name="host" value="${redis.host}"/>
+  		<constructor-arg name="port" value="${redis.port}"/>
+  	</bean>-->
+	<bean id="iiGtPush" class="com.yaoyaohao.health.surface.push.IGtPushFactory">
+		<property name="appId" value="D4drkp6rXr79PvX4XjYPb1" />
+		<property name="appKey" value="hzIl2frpmR7I3UjmiHtdh2" />
+		<property name="masterSecret" value="mEpm5jKnng7Hn31JA89FD7" />
+		<property name="url" value="http://sdk.open.api.igexin.com/apiex.htm" />
+	</bean>
+	<!--<bean id="iGAppPushImpl" class="com.yaoyaohao.health.surface.push.impl.IGAppPushImpl"></bean>-->
+	<bean id="springContextUtil" class="com.yaoyaohao.health.surface.push.SpringContextUtil">
+	</bean>
+	<import resource="classpath*:spring/applicationContext-common.xml"></import>
+</beans>
